@@ -65,9 +65,4 @@ class EncuestaServiceTest {
         //then
         verify(encuestasRepository).save(any());
     }
-
-    @Test
-    @Disabled
-    void guardarEncuesta() {
-    }
 }

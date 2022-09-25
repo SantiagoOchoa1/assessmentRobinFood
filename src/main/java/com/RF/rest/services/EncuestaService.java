@@ -3,6 +3,7 @@ package com.RF.rest.services;
 import com.RF.rest.dtos.EncuestaDto;
 import com.RF.rest.entities.Encuesta;
 import com.RF.rest.entities.Pregunta;
+import com.RF.rest.mappers.EncuestaMapper;
 import com.RF.rest.repositories.EncuestasRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
@@ -20,10 +21,9 @@ public class EncuestaService {
         this.modelMapper = modelMapper;
     }
 
-    public Optional<Encuesta> listarEncuesta(Long id) {
+    public EncuestaDto listarEncuesta(Long id) {
         Optional<Encuesta> encuesta = encuestasRepository.findById(id);
-//        EncuestaDto encuestaDto = modelMapper.map(encuesta.get(), EncuestaDto.class);
-        return encuesta;
+        return new EncuestaMapper().encuestaEntToDto(encuesta.get());
     }
 
     public Encuesta crearEncuesta(EncuestaDto encuestaDto) {
