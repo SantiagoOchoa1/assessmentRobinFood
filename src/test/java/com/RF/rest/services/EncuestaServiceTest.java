@@ -26,8 +26,6 @@ class EncuestaServiceTest {
 
     @Mock
     private EncuestasRepository encuestasRepository;
-    @Mock
-    private ModelMapper modelMapper;
     private EncuestaService underTest;
     private AutoCloseable autoCloseable;
 
@@ -44,8 +42,16 @@ class EncuestaServiceTest {
 
     @Test
     void listarEncuestaDadoUnId() {
+        //given
         Long idEncuesta = Long.valueOf(1);
+        //given
+        OpcionDto opcionDto = new OpcionDto(Long.valueOf(1), "A");
+        OpcionDto opcionDto2 = new OpcionDto(Long.valueOf(1), "B");
+        PreguntaDto preguntaDto = new PreguntaDto(Long.valueOf(1), "cual prefieres", true,null, List.of(opcionDto, opcionDto2));
+        EncuestaDto encuestaDto = new EncuestaDto(Long.valueOf(2), "encuesta1", List.of(preguntaDto));
 
+        //when
+        given(encuestasRepository.findById(idEncuesta)).willReturn(Optional.of(new Encuesta()));
         underTest.listarEncuesta(idEncuesta);
 
         verify(encuestasRepository).findById(idEncuesta);
